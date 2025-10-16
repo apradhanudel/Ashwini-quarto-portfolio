@@ -166,6 +166,9 @@ cython_debug/
 _site/
 *.qmd~
 
+# CSS files
+*.css
+
 # R specific (if using R with Python)
 .Rhistory
 .RData

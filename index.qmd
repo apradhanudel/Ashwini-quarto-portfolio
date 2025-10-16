@@ -1,0 +1,111 @@
+---
+title: "Data Visualization with Matplotlib"
+format: html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Introduction
+
+This document demonstrates how to create beautiful visualizations using Matplotlib in Quarto.
+
+## Simple Line Plot
+
+Here's a basic line plot showing sample data:
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Generate sample data
+x = np.linspace(0, 10, 100)
+y1 = np.sin(x)
+y2 = np.cos(x)
+
+# Create the plot
+plt.figure(figsize=(10, 6))
+plt.plot(x, y1, label='sin(x)', linewidth=2, color='blue')
+plt.plot(x, y2, label='cos(x)', linewidth=2, color='red')
+
+# Customize the plot
+plt.title('Trigonometric Functions', fontsize=16, fontweight='bold')
+plt.xlabel('x', fontsize=12)
+plt.ylabel('y', fontsize=12)
+plt.legend(fontsize=11)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+
+# Display the plot
+plt.show()
+```
+
+## Bar Chart Example
+
+Here's a bar chart showing sample data:
+
+```{python}
+import matplotlib.pyplot as plt
+
+# Sample data
+categories = ['Python', 'JavaScript', 'R', 'SQL', 'Java']
+values = [85, 70, 60, 75, 65]
+
+# Create bar chart
+plt.figure(figsize=(10, 6))
+bars = plt.bar(categories, values, color=['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'])
+
+# Customize the chart
+plt.title('Programming Language Popularity', fontsize=16, fontweight='bold')
+plt.xlabel('Languages', fontsize=12)
+plt.ylabel('Popularity Score', fontsize=12)
+plt.ylim(0, 100)
+
+# Add value labels on bars
+for bar in bars:
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2., height + 1,
+             f'{int(height)}', ha='center', va='bottom', fontweight='bold')
+
+plt.tight_layout()
+plt.show()
+```
+
+## Scatter Plot with Regression
+
+Here's a scatter plot with a trend line:
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Generate sample data with some noise
+np.random.seed(42)
+x = np.random.randn(50) * 10
+y = 2 * x + 3 + np.random.randn(50) * 5
+
+# Fit linear regression
+model = LinearRegression()
+model.fit(x.reshape(-1, 1), y)
+y_pred = model.predict(x.reshape(-1, 1))
+
+# Create scatter plot
+plt.figure(figsize=(10, 6))
+plt.scatter(x, y, alpha=0.6, color='blue', s=50, label='Data points')
+plt.plot(x, y_pred, color='red', linewidth=2, label=f'Regression line (y={model.coef_[0]:.2f}x+{model.intercept_:.2f})')
+
+# Customize the plot
+plt.title('Scatter Plot with Linear Regression', fontsize=16, fontweight='bold')
+plt.xlabel('X values', fontsize=12)
+plt.ylabel('Y values', fontsize=12)
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+## Conclusion
+
+These examples show how easy it is to create professional-looking visualizations using Matplotlib in Quarto documents. The plots are automatically rendered when you build the document to HTML.
